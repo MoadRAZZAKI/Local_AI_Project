@@ -66,7 +66,7 @@ Cette configuration permet :
 -  Une **installation 100% locale** sans compromis sur les performances
 -  Le **support GPU (CUDA)** pour l’accélération des tâches d’inférence via la carte NVIDIA L4 (24 Go VRAM), indispensable pour des modèles LLM modernes
 
-### 🎯 Pourquoi ce choix de VM ?
+### Pourquoi ce choix de VM ?
 
 Le choix de cette VM repose sur plusieurs critères clés pour une plateforme d'IA locale :
 
