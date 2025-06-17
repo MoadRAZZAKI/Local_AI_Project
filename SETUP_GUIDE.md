@@ -158,7 +158,7 @@ ollama run llama3.1:latest
 ```
 Vous pouvez alors entrer vos prompts directement dans le terminal :
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 
 ## 5. Tester une requête via l'API
@@ -176,7 +176,7 @@ curl http://localhost:11434/api/generate -d '{
 Réponse : JSON contenant le texte généré par le modèle 
 
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 ##  6. Liste des modèles installés localement 
 
