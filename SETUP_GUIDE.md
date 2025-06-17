@@ -187,6 +187,7 @@ ollama list
 
 ## 7. Supprimer un modèle
 
-
-
+```bash
+ollama rm mistral
+```
 
