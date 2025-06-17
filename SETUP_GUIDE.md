@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
 
 
 Ce projet a pour objectif de mettre en place une solution d'intelligence artificielle générative en auto-hébergement. Il s'appuie sur deux composants principaux :
