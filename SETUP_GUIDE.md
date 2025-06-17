@@ -44,3 +44,33 @@ Ce projet est conçu pour **fonctionner entièrement en local**, garantissant ai
 - Aucune donnée n’est envoyée vers des serveurs distants, sauf configuration explicite.
 
 Ainsi, toutes les interactions avec les modèles d'IA sont **privées, sécurisées, et sous ton contrôle total**.
+
+
+## Environnement de déploiement – Machine Virtuelle
+
+Pour garantir de bonnes performances à l’**IA générative auto-hébergée**, ce projet a été déployé sur une **machine virtuelle (VM)** puissante, optimisée pour l’exécution de modèles LLM locaux, notamment ceux proposés via **Ollama**.
+
+### Spécifications techniques de la VM
+
+| Ressource       | Détail                        |
+|------------------|-------------------------------|
+|  Processeurs    | 16 cœurs                      |
+|  Mémoire RAM    | 50 Go                         |
+|  Stockage SSD  | 500 Go                        |
+|  GPU           | NVIDIA L4 avec 24 Go de VRAM  |
+|  Adresse IP     | `159.31.247.122`              |
+
+Cette configuration permet :
+
+-  Le **chargement rapide** et **l’inférence fluide** de modèles de langage volumineux (ex : LLaMA3, Mistral, etc.)
+-  Une **installation 100% locale** sans compromis sur les performances
+-  Le **support GPU (CUDA)** pour l’accélération des tâches d’inférence via la carte NVIDIA L4 (24 Go VRAM), indispensable pour des modèles LLM modernes
+
+### 🎯 Pourquoi ce choix de VM ?
+
+Le choix de cette VM repose sur plusieurs critères clés pour une plateforme d'IA locale :
+
+- **Compatibilité GPU avec Ollama et PyTorch** (accélération CUDA)
+- **Mémoire suffisante** pour charger des modèles en RAM + VRAM sans swap
+- **Stockage conséquent** pour accueillir plusieurs modèles (~2-10 Go chacun) et les historiques utilisateurs
+- **Sécurité et isolation** : environnement dédié pour l’IA générative, sans interférence avec d'autres services
