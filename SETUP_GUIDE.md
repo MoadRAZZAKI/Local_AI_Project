@@ -76,3 +76,55 @@ Le choix de cette VM repose sur plusieurs critères clés pour une plateforme d'
 - **Sécurité et isolation** : environnement dédié pour l’IA générative, sans interférence avec d'autres services
 
 
+
+# Installation et configuration complète d'Ollama sur une VM Linux (user `moad`)
+
+Ce document retrace toutes les étapes suivies pour installer et faire fonctionner **Ollama** sur une machine distante nommée `Noa`, avec l'utilisateur `moad`. Il inclut les erreurs rencontrées et leurs solutions.
+
+---
+
+## 1. Installation d’Ollama
+
+### Étapes :
+
+Téléchargement et installation d'Ollama dans notre VM rocky :
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+Cela installe le binaire dans `/usr/local/bin/ollama`.
+
+
+
+## 2. Démarrage propre d’Ollama
+
+Une fois tous les processus terminés :
+
+```bash
+ollama serve
+```
+
+### Résultat attendu :
+
+```log
+Listening on 127.0.0.1:11434 (version 0.9.0)
+...
+inference compute GPU NVIDIA L4 OK
+```
+
+## (Optionnel) Lancer Ollama sur un autre port
+
+Si le port 11434 est occupé ou si tu veux éviter les conflits :
+
+```bash
+OLLAMA_HOST=127.0.0.1:11435 ollama serve
+OLLAMA_HOST=0.0.0.0:11435 ollama serve 
+```
+
+## Remarques
+
+- Un processus `ollama serve` se lance automatiquement via un mécanisme (peut-être `systemd` ou un autre service de fond).
+- Il tourne avec l'utilisateur `ollama`.
+- La méthode `pkill -f ollama` permet de le tuer efficacement, mais il revient si un service l’autostart.
+- À long terme, il faudra identifier et désactiver le service systemd correspondant pour avoir le contrôle total.
