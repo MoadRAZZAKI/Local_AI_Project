@@ -124,3 +124,69 @@ OLLAMA_HOST=0.0.0.0:11435 ollama serve
 - Il tourne avec l'utilisateur `ollama`.
 - La méthode `pkill -f ollama` permet de le tuer efficacement, mais il revient si un service l’autostart.
 - À long terme, il faudra identifier et désactiver le service systemd correspondant pour avoir le contrôle total.
+
+
+## 3. Téléchargement du modèle : 
+
+Pour importer le modèle localement : 
+
+```bash
+ollama pull llama3
+```
+
+Exemples de modèles disponibles :
+
+
+| Nom du modèle       | Commande pull                 |
+| ------------------- | ----------------------------- |
+| LLaMA 3.1 (8B)        | `ollama pull llama3.1`          |
+| Mistral             | `ollama pull mistral`         |
+| Gemma               | `ollama pull gemma`           |
+| Codellama           | `ollama pull codellama`       |
+| Phi-2               | `ollama pull phi`             |
+| Dolphin (finetuned) | `ollama pull dolphin-mixtral` |
+
+
+Par défaut, les modèles sont stockés localement dans le répertoire ~/.ollama. Leur taille peut varier selon le modèle utilisé ; à titre d’exemple, LLAMA3.1 occupe environ 4,9 Go, tandis que Mistral pèse environ 4,1 Go.
+
+## 4. Lancer le modèle pour dialoguer 
+
+Une fois le modèle téléchargé :
+
+```bash
+ollama run llama3.1:latest
+```
+Vous pouvez alors entrer vos prompts directement dans le terminal :
+
+![alt text](image.png)
+
+
+## 5. Tester une requête via l'API
+
+Ollama expose une API REST locale. Exemple avec curl :
+
+
+```bash
+curl http://localhost:11434/api/generate -d '{
+  "model": "llama3",
+  "prompt": "Explique-moi la physique quantique simplement."
+}'
+```
+
+Réponse : JSON contenant le texte généré par le modèle 
+
+
+![alt text](image-1.png)
+
+##  6. Liste des modèles installés localement 
+
+```bash
+ollama list
+```
+
+
+## 7. Supprimer un modèle
+
+
+
+
