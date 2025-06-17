@@ -35,3 +35,12 @@ Open WebUI fournit une interface élégante pour discuter avec ces modèles, com
 
 Ce projet est donc une alternative locale, libre et extensible aux assistants IA disponibles sur Internet.
 
+## Où sont stockées les données ?
+
+Ce projet est conçu pour **fonctionner entièrement en local**, garantissant ainsi **la confidentialité totale des données** :
+
+- **Les modèles sont stockés sur la machine locale**, dans le dossier `~/.ollama`.
+- **Les historiques de conversation sont enregistrés dans le volume Docker d'Open WebUI**, accessible uniquement par l'utilisateur du système.
+- Aucune donnée n’est envoyée vers des serveurs distants, sauf configuration explicite.
+
+Ainsi, toutes les interactions avec les modèles d'IA sont **privées, sécurisées, et sous ton contrôle total**.
