@@ -79,10 +79,6 @@ Le choix de cette VM repose sur plusieurs critères clés pour une plateforme d'
 
 # Installation et configuration complète d'Ollama sur une VM Linux
 
-Ce document retrace toutes les étapes suivies pour installer et faire fonctionner **Ollama** sur une machine distante nommée `Noa`, avec l'utilisateur `moad`. Il inclut les erreurs rencontrées et leurs solutions.
-
----
-
 ## 1. Installation d’Ollama
 
 ### Étapes :
