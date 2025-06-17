@@ -74,3 +74,5 @@ Le choix de cette VM repose sur plusieurs critères clés pour une plateforme d'
 - **Mémoire suffisante** pour charger des modèles en RAM + VRAM sans swap
 - **Stockage conséquent** pour accueillir plusieurs modèles (~2-10 Go chacun) et les historiques utilisateurs
 - **Sécurité et isolation** : environnement dédié pour l’IA générative, sans interférence avec d'autres services
+
+
