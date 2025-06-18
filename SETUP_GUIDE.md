@@ -191,3 +191,177 @@ ollama list
 ollama rm mistral
 ```
 
+
+# Installation de l'interface web Open WebUI 
+
+## Présentation
+
+
+**Open WebUI** est une interface web moderne, intuitive et open source qui permet d’interagir facilement avec des **modèles de langage (LLMs)** comme ceux gérés par **Ollama**.  
+Elle fournit un environnement conversationnel (chatbot) semblable à ChatGPT, mais **entièrement local** et **personnalisable**.
+
+Open WebUI est souvent déployée en conteneur Docker et communique avec Ollama via une API locale (`http://localhost:11434`).
+
+## Méthodes d'installation : Docker vs installation locale 
+
+Il existe deux méthodes principales pour installer Open WebUI : via Docker ou en installation locale directe. L’approche avec Docker est idéale pour une mise en route rapide et encapsulée, car elle permet d’exécuter l’application dans un conteneur isolé, sans dépendre de la configuration de l’environnement hôte. C’est une solution robuste, simple à déployer, et adaptée pour des environnements de production. En revanche, l’installation locale (via git clone) offre une plus grande flexibilité pour les développeurs souhaitant modifier le code source, personnaliser l’interface, ou interagir plus directement avec les composants frontend et backend. Elle est aussi plus légère en ressources si l’environnement de développement est bien configuré, mais demande davantage de configuration initiale (Python, Node.js, environnements virtuels).
+
+## Installation via Docker
+
+### 1. Créer un fichier `docker-compose.yml` :
+
+```yaml
+version: '3.8'
+services:
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - 3000:8080
+    volumes:
+      - open-webui-data:/app/backend/data
+      - /home/moad/.ollama/models/manifests/registry.ollama.ai/library/llama3.1
+    environment:
+      - OLLAMA_API_BASE_URL=http://172.17.0.1:11434
+    restart: unless-stopped
+
+volumes:
+  open-webui-data:
+```
+
+### Remarque : 
+
+172.17.0.1 est l’adresse IP que Docker utilise pour accéder à l’hôte depuis un conteneur sous Linux.
+
+### 2. Lancer le service
+
+```bash
+docker compose up -d
+```
+
+### 3. Accèder à l'interface WEB :
+
+Depuis un navigateur : http://localhost:3000
+
+
+**Voici les fonctionnalités principales :** 
+
+Chat multi-modèles ( on peut facilement basculer entre llama3, mistral, etc.).
+
+Historique des conversations (stocké localement).
+
+Prise en charge des modèles personnalisés.
+
+UI légère basée sur SvelteKit.
+
+
+**Où sont stockées les données ?**
+
+- Les données utilisateurs (chats, préférences, etc.) sont dans le volume Docker : 
+
+```bash
+/app/backend/data
+```
+Les fichiers statiques (images, favicon, etc.) sont dans :
+
+```bash
+/app/static
+```
+
+
+## Installation avec Git Clone 
+
+
+### Prérequis
+
+Avant de commencer, il faut s'assurer que notre machine répond aux exigences suivantes :
+
+- **Système d’exploitation** : Linux, macOS, ou Windows 11 avec WSL
+- **Python** : 3.11 ou plus
+- **Node.js** : 22.10 ou plus
+- **Conda** (recommandé) : pour isoler les environnements Python
+- **npm** : pour gérer les dépendances frontend
+- **VSCode (recommandé)** : pour une expérience de développement optimale
+- **GitHub Desktop (optionnel)** : pour ceux qui préfèrent une interface graphique Git
+
+
+### 1. Clonage du dépôt
+
+```bash
+git clone https://github.com/open-webui/open-webui.git
+cd open-webui
+```
+
+### 2. Mise en place du Frontend
+
+**Étape 1 : Copier le fichier .env**
+
+```bash
+cp -RPp .env.example .env
+```
+
+Ensuite, on peut éditer le fichier .env si on veut modifier des paramètres comme l’URL de l’API.
+
+
+**Étape 2 : Installer les dépendances frontend**
+
+```bash
+npm install
+```
+
+**Étape 3 : Lancer le serveur de développement frontend**
+
+```bash
+npm run dev
+```
+
+On accède à http://localhost:5173 pour voir l'interface. Si le backend n'est pas encore lancé, un message nous indique qu’il est en attente ! donc c'est important de lancer le backend avant de lancer le front end.
+
+### 3. Mise en place du Backend
+
+
+Il nous faut un autre terminal pour garder les logs séparés du frontend.
+
+**Étape 1 : Aller dans le dossier backend**
+
+```bash
+cd backend
+```
+
+**Étape 2 : Créer et activer un environnement Conda**
+
+```bash
+conda create --name open-webui python=3.11
+conda activate open-webui
+```
+
+Si vous n’utilisez pas Conda, assurez-vous d’avoir Python 3.11+ actif.
+
+**Étape 3 : Installer les dépendances Python**
+
+```bash
+pip install -r requirements.txt -U
+```
+
+**Étape 4 : Lancer le serveur backend**
+
+```bash
+sh dev.sh
+```
+
+Une fois lancé, on ouvre http://localhost:8080/docs pour consulter la documentation interactive de l'API backend via Swagger
+
+Voici enfin la representation de l'arborescence du projet Open WEBUI en mode installation locale: 
+
+```bash
+open-webui/
+├── backend/            # Serveur FastAPI
+│   ├── app/
+│   ├── dev.sh
+│   └── requirements.txt
+├── frontend/           # Interface utilisateur
+├── .env
+├── .env.example
+├── package.json
+└── README.md
+```
